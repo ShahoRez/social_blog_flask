@@ -1,0 +1,49 @@
+from puppycompanyblog import db , login_manager
+from falsk_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+class User(db.Model,UserMixin):
+    __tablename__ = 'users'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(64) , unique = True , index = True)
+    username = db.Column(db.String(64) , unique = True, index = True)
+    password = db.Column(db.String(128))
+    profile_image = db.Column(db.String(255) , nullable = False , default = 'default.jpg')
+    posts = db.relationship('BlogPosts', backref = 'author', lazy = True)
+    
+    def __init__(self, email, username, password):
+        self.email = email
+        self.username = username
+        self.password = generate_password_hash(password)
+    
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+    
+    def __repr__(self):
+        return f'user is {self.username}'
+    
+    
+class BlogPosts(db.Model):
+    
+    users = db.relationship(User)
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    title = db.Column(db.String(255), nullable = False)
+    content = db.Column(db.Text, nullable = False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    
+    def __init__(self, author_id, title, content):
+        self.author_id = author_id
+        self.title = title
+        self.content = content
+        
+    def __repr__(self):
+        return f'post is {self.title} -- Date : {self.date_posted}'
