@@ -1,8 +1,8 @@
 from flask import  render_template , redirect, request , flash , url_for , Blueprint
 from flask_login import login_required , current_user , login_user , logout_user
 from puppycompanyblog import db
-from forms import LoginForm, RegistrationForm , UpdateUserForm
-from picture_handler import add_profile_pic
+from puppycompanyblog.users.forms import LoginForm, RegistrationForm , UpdateUserForm
+from puppycompanyblog.users.picture_handler import add_profile_pic
 from puppycompanyblog.models import User , BlogPosts
  
 users = Blueprint('users',__name__)
