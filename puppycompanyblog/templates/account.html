@@ -1,24 +1,30 @@
 {% extends 'base.html' %} {% block content %}
-<form method="POST">
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-4">
-        <!-- Profile Image -->
-        <div class="text-center">
-          <h2>Welcome to {{current.user.username}}'s profile page</h2>
-          <img
-            src="{{profile_pic}}"
-            class="rounded-circle"
-            alt="Profile Picture"
-            width="200"
-          />
-        </div>
-      </div>
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+  <div class="container mt-5 center">
+    <!-- Profile Image -->
+    <div class="text-center">
+      <h2>Welcome to {{current_user.username}}'s profile page</h2>
+      <br />
     </div>
+    <img
+      src="{{url_for('static', filename='profile_pics/' + current_user.profile_image)}}"
+      class="rounded-circle mx-auto d-block"
+      alt=" {{current_user.username}}'s Profile Picture"
+      width="200"
+    />
+    <br />
   </div>
+</div>
+<form method="POST" action="" enctype="multipart/form-data">
   <div class="form-group">
     {{form.hidden_tag()}} {{form.email.label}}{{form.email(class="form-control"
-    , id="exampleInputEmail1" , aria-describedby="emailHelp")}}
+    , id="exampleInputEmail1" )}}
+  </div>
+
+  <div class="form-group">
+    {{form.hidden_tag()}}
+    {{form.username.label}}{{form.username(class="form-control" )}}
   </div>
 
   <div class="form-group">
@@ -27,10 +33,11 @@
   </div>
 
   <div class="form-group">
-    {{form.picture.label}}{{form.picture(class="form-control" ,
-    id="exampleInputPassword1" )}}
+    {{form.picture.label}}{{form.picture(class="form-control-file" ,
+    id="exampleFormControlFile1" )}}
   </div>
 
   {{form.submit(class="btn btn-primary")}}
 </form>
+
 {% endblock %}

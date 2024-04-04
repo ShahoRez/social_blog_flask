@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField , SubmitField , PasswordField
-from wtforms.validators import DataRequired, Email , EqualTo
+from wtforms.validators import DataRequired, Email , EqualTo , Optional
 from wtforms import ValidationError
 from flask_wtf.file import FileField , FileAllowed
 
@@ -33,7 +33,7 @@ class RegistrationForm(FlaskForm):
 class UpdateUserForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired(), Email()])
     username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[Optional()])
     picture = FileField('Update Profile Picture' , validators= [ FileAllowed(['jpg','png','jpeg'],message="only accept file with '.jpg','.png' and 'jpeg' extensions")])
     submit = SubmitField('Update')
     
