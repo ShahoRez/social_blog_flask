@@ -60,7 +60,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Shaho Rezaei - https://www.linkedin.com/in/shaho-rezaei/ - rezaieshaho@gmail.com
 
-Project Link: [https://github.com/your-username/social-blog-flask](https://github.com/ShahoRez/social-blog-flask)
+Project Link: [https://github.com/ShahoRez/social-blog-flask](https://github.com/ShahoRez/social-blog-flask)
 
 ---
 
